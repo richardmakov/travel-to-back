@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import java.math.BigDecimal;
 
 @Entity
-public class Trip extends Booking {
+public class Booking_trip extends Booking {
 
     private String destination;
     private BigDecimal price;

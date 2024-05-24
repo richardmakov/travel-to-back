@@ -11,11 +11,13 @@ public abstract class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date bookingDate;
+    private String bookingDate;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
 
     public Long getId() {
         return id;
@@ -25,11 +27,11 @@ public abstract class Booking {
         this.id = id;
     }
 
-    public Date getBookingDate() {
+    public String getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
 

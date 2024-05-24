@@ -7,29 +7,41 @@ public class JwtResponse {
   private String type = "Bearer";
   private Long id;
   private String email;
+  private String firstname;
+  private String lastname;
+  private String phone;
+  private String idCard;
+  private String passport;
+  private String country;
   private List<String> roles;
 
-  public JwtResponse(String accessToken, Long id, String email, List<String> roles) {
+  public JwtResponse(String accessToken,String firstname, String lastname, String phone, String idCard, String passport,  String country, Long id, String email, List<String> roles) {
     this.token = accessToken;
     this.id = id;
+    this.firstname = firstname;
+    this.lastname = lastname;
     this.email = email;
+    this.phone = phone;
+    this.idCard = idCard;
+    this.passport = passport;
+    this.country = country;
     this.roles = roles;
   }
 
-  public String getAccessToken() {
+  public String getToken() {
     return token;
   }
 
-  public void setAccessToken(String accessToken) {
-    this.token = accessToken;
+  public void setToken(String token) {
+    this.token = token;
   }
 
-  public String getTokenType() {
+  public String getType() {
     return type;
   }
 
-  public void setTokenType(String tokenType) {
-    this.type = tokenType;
+  public void setType(String type) {
+    this.type = type;
   }
 
   public Long getId() {
@@ -48,7 +60,59 @@ public class JwtResponse {
     this.email = email;
   }
 
+  public String getFirstname() {
+    return firstname;
+  }
+
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
+
+  public String getLastname() {
+    return lastname;
+  }
+
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getIdCard() {
+    return idCard;
+  }
+
+  public void setIdCard(String idCard) {
+    this.idCard = idCard;
+  }
+
+  public String getPassport() {
+    return passport;
+  }
+
+  public void setPassport(String passport) {
+    this.passport = passport;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
   public List<String> getRoles() {
     return roles;
+  }
+
+  public void setRoles(List<String> roles) {
+    this.roles = roles;
   }
 }
