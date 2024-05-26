@@ -25,7 +25,7 @@ public class SignupRequest {
   private String password;
 
   @NotBlank
-  @Size(min = 3, max = 20)
+  @Size(min = 3, max = 50)
   private String country;
 
   @NotBlank

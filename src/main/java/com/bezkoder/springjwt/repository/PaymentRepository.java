@@ -1,7 +1,7 @@
 package com.bezkoder.springjwt.repository;
 
-import com.bezkoder.springjwt.models.Booking_payment;
+import com.bezkoder.springjwt.models.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PaymentRepository extends JpaRepository<Booking_payment, Long> {
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
 }
