@@ -1,4 +1,4 @@
-package com.bezkoder.springjwt.Service;
+package com.bezkoder.springjwt.service;
 
 import com.bezkoder.springjwt.models.*;
 import com.bezkoder.springjwt.repository.*;
@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookingService {

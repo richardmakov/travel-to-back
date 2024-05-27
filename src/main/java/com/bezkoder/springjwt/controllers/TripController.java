@@ -1,7 +1,7 @@
 package com.bezkoder.springjwt.controllers;
 
 
-import com.bezkoder.springjwt.Service.TripService;
+import com.bezkoder.springjwt.service.TripService;
 import com.bezkoder.springjwt.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

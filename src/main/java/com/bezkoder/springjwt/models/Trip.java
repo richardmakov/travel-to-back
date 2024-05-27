@@ -20,8 +20,6 @@ public class Trip {
     private String departure_date;
     private String return_date;
     private String images_route;
-    @OneToMany(mappedBy = "trip")
-    private Set<Booking> bookings;
 
     public Long getId() {
         return id;
@@ -101,14 +99,6 @@ public class Trip {
 
     public void setImages_route(String images_route) {
         this.images_route = images_route;
-    }
-
-    public Set<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
     }
 
     public Trip() {

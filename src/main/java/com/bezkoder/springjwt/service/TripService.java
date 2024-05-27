@@ -1,4 +1,4 @@
-package com.bezkoder.springjwt.Service;
+package com.bezkoder.springjwt.service;
 
 
 import com.bezkoder.springjwt.models.Trip;
