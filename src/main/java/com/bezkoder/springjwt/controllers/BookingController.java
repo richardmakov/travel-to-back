@@ -8,20 +8,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE})
 @RestController
-@RequestMapping("/bookings")
+@RequestMapping("/api/bookings")
 public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping
-    public List<Booking> getAllBookings() {
-        return bookingService.getAllBookings();
-    }
-
     @PostMapping("/create")
     public Booking createBooking(@RequestBody Booking booking) {
         return bookingService.saveBooking(booking);
+    }
+
+    @GetMapping
+    public List<Booking> getAllBookings() {
+        return bookingService.getAllBookings();
     }
 
     @GetMapping("/{id}")
@@ -34,4 +36,3 @@ public class BookingController {
         bookingService.deleteBooking(id);
     }
 }
-

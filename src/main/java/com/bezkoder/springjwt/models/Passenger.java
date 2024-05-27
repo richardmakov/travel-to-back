@@ -12,6 +12,7 @@ public class Passenger {
     private String passportNumber;
 
     @ManyToOne
+    @JoinColumn(name = "booking_id")
     private Booking booking;
 
     public Long getId() {

@@ -12,6 +12,8 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String booking_number;
+
     @ManyToOne
     private Trip trip;
 
@@ -34,6 +36,14 @@ public class Booking {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getBooking_number() {
+        return booking_number;
+    }
+
+    public void setBooking_number(String booking_number) {
+        this.booking_number = booking_number;
     }
 
     public Trip getTrip() {
@@ -75,4 +85,5 @@ public class Booking {
     public void setUser(User user) {
         this.user = user;
     }
+
 }
