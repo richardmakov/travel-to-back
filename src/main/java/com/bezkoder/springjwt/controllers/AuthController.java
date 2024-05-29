@@ -84,6 +84,18 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
+        if (userRepository.existsByIdCard(signUpRequest.getIdCard())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: IdCard is already in use!"));
+        }
+
+        if (userRepository.existsByPassport(signUpRequest.getPassport())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Passport is already in use!"));
+        }
+
         // Create new user's account
         User user = new User(signUpRequest.getFirstname(), signUpRequest.getLastname(),
                 signUpRequest.getEmail(),

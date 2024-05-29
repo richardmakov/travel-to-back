@@ -10,6 +10,7 @@ import com.bezkoder.springjwt.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -20,19 +21,17 @@ public class DataLoader implements CommandLineRunner {
 
     private final TripRepository tripRepository;
     private final RoleRepository roleRepository;
-    private final UserRepository userRepository;
 
-    public DataLoader(TripRepository tripRepository, RoleRepository roleRepository, UserRepository userRepository) {
+    public DataLoader(TripRepository tripRepository, RoleRepository roleRepository) {
         this.tripRepository = tripRepository;
         this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         loadTrips();
         loadRoles();
-        loadUsers();
+
     }
 
     private void loadTrips() {
@@ -42,14 +41,15 @@ public class DataLoader implements CommandLineRunner {
                 new Trip(3L, "Nepal", "https://lonelyplanetes.cdnstatics2.com/sites/default/files/styles/max_1300x1300/public/blog/namche_bazar_distrito_khumbu_nepal_shutterstock_360405194.jpg?itok=V_9up5ia", "$2650", "2405€", "../../../../nepal", "Immerse yourself in the natural beauty and spirituality of Nepal, home to the majestic Himalayan mountains and rich culture of Buddhism and Hinduism. From trekking routes to ancient temples, each experience is enriching.", "Mount Everest, Swayambhunath Temple, Lumbini", "2024-09-05", "2024-09-19"),
                 new Trip(4L, "Turkmenistan", "https://www.advantour.com/img/turkmenistan/turkmenistan-history7.jpg", "$1350", "1105€", "../../../../turke", "Discover the fascinating history and unique architecture of Turkmenistan, a hidden gem in Central Asia. From the ruins of Merv to the gates of the White City, each place tells a story of a rich and varied past.", "The Gates of Darvaza, Ruins of Nisa, City of Merv", "2024-10-01", "2024-10-14"),
                 new Trip(5L, "Thailand", "https://www.kanamitravel.com/blog/wp-content/uploads/2020/12/img_portada_128_1536854044_isan-tailandia-utopica.jpg", "$950", "870€", "../../../../thai", "Explore the tropical lushness and tranquil spirituality of Thailand, from white sandy beaches to ornate temples. With vibrant cuisine and welcoming culture, every moment in Thailand is an unforgettable adventure.", "Temple of the Emerald Buddha in Bangkok, Phi Phi Islands, Khao Sok National Park", "2024-08-15", "2024-08-25"),
-                new Trip(6L, "Bali", "https://www.civitatis.com/blog/wp-content/uploads/2012/01/shutterstock_1238373562-1920x1277.jpg", "$1005", "908€", "../../../../thai", "Immerse yourself in the serenity and spirituality of Bali, where culture and nature merge into a charming experience. From terraced rice fields to hidden temples, every corner of Bali invites you to relax and rejuvenate.", "Besakih Temple, Ubud Monkey Forest, Tegallalang Rice Terrace", "2024-11-01", "2024-11-14"),
-                new Trip(7L, "Punta Cana", "https://media.tacdn.com/media/attractions-content--1x-1/12/5f/c0/84.jpg", "$2504", "2258€", "../../../../thai", "Enjoy Caribbean paradise in Punta Cana, where white sandy beaches meet the crystal-clear waters of the Caribbean Sea. With a variety of water activities and luxury resorts, every moment in Punta Cana is a tropical getaway.", "Bavaro Beach, Saona Island, Ojos Indígenas Ecological Park", "2024-12-05", "2024-12-12"),
+                new Trip(6L, "Bali", "https://www.civitatis.com/blog/wp-content/uploads/2012/01/shutterstock_1238373562-1920x1277.jpg", "$1005", "908€", "../../../../bali", "Immerse yourself in the serenity and spirituality of Bali, where culture and nature merge into a charming experience. From terraced rice fields to hidden temples, every corner of Bali invites you to relax and rejuvenate.", "Besakih Temple, Ubud Monkey Forest, Tegallalang Rice Terrace", "2024-11-01", "2024-11-14"),
+                new Trip(7L, "Punta Cana", "https://media.tacdn.com/media/attractions-content--1x-1/12/5f/c0/84.jpg", "$2504", "2258€", "../../../../puntacana", "Enjoy Caribbean paradise in Punta Cana, where white sandy beaches meet the crystal-clear waters of the Caribbean Sea. With a variety of water activities and luxury resorts, every moment in Punta Cana is a tropical getaway.", "Bavaro Beach, Saona Island, Ojos Indígenas Ecological Park", "2024-12-05", "2024-12-12"),
                 new Trip(8L, "Riga", "https://media.tacdn.com/media/attractions-splice-spp-674x446/06/71/10/74.jpg", "$1210", "1020€", "../../../../riga", "Explore the charming beauty and rich history of Riga, the capital of Latvia. With its medieval architecture and cosmopolitan atmosphere, Riga offers a unique experience in the Baltic region.", "Historic Center of Riga, Riga Castle, Museum of the Occupation of Latvia", "2024-05-10", "2024-05-17"),
-                new Trip(9L, "Budapest", "https://a.cdn-hotels.com/gdcs/production163/d345/47e14d8a-051b-4932-85d1-8f5c0363fde7.jpg", "$1090", "898€", "../../../../thai", "Embark on a journey to dazzling Budapest, where historical architecture meets modern charm along the majestic Danube River. With its famous thermal baths and vibrant nightlife, Budapest offers a unique experience in Central Europe.", "Hungarian Parliament", "2024-04-15", "2024-04-22")
+                new Trip(9L, "Budapest", "https://a.cdn-hotels.com/gdcs/production163/d345/47e14d8a-051b-4932-85d1-8f5c0363fde7.jpg", "$1090", "898€", "../../../../budapest", "Embark on a journey to dazzling Budapest, where historical architecture meets modern charm along the majestic Danube River. With its famous thermal baths and vibrant nightlife, Budapest offers a unique experience in Central Europe.", "Hungarian Parliament", "2024-04-15", "2024-04-22")
         );
 
         tripRepository.saveAll(trips);
     }
+
     private void loadRoles() {
         List<Role> roles = Arrays.asList(
                 new Role(ERole.ROLE_ADMIN),
@@ -58,16 +58,8 @@ public class DataLoader implements CommandLineRunner {
         );
 
 
-
         roleRepository.saveAll(roles);
     }
 
-    private void loadUsers() {
-        List<User> users = Arrays.asList(
-                new User("richard", "makovs", "richardmakovs08@gmail.com", "$10$4Xxc/0/w9MllwlcXB1xJ9OPRkjGDQI1shd6574U1xZCsw.4XmqqM2", "666666666", "GGGGGGG", "GGGGGGG", "Spain", "2024-05-09")
-        );
-
-        userRepository.saveAll(users);
-    }
 
 }
