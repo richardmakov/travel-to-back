@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class TripService {
-
     private final TripRepository tripRepository;
 
     @Autowired

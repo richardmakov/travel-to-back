@@ -15,8 +15,6 @@ public class Flight {
     private String arrivalAirport;
     private String departureTime;
     private String arrivalTime;
-    @OneToMany(mappedBy = "flight")
-    private Set<Booking> bookings;
 
     public Long getId() {
         return id;

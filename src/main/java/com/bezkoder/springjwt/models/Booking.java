@@ -1,8 +1,11 @@
 package com.bezkoder.springjwt.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -15,13 +18,14 @@ public class Booking {
     private String booking_number;
 
     @ManyToOne
+    @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @ManyToOne
-    private Flight flight;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Flight> flights = new ArrayList<>();
 
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
-    private Set<Passenger> passengers;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Passenger> passengers = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     private Payment payment;
@@ -54,19 +58,19 @@ public class Booking {
         this.trip = trip;
     }
 
-    public Flight getFlight() {
-        return flight;
+    public List<Flight> getFlights() {
+        return flights;
     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 
-    public Set<Passenger> getPassengers() {
+    public List<Passenger> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(Set<Passenger> passengers) {
+    public void setPassengers(List<Passenger> passengers) {
         this.passengers = passengers;
     }
 

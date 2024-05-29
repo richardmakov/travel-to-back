@@ -1,7 +1,13 @@
 package com.bezkoder.springjwt.config;
 
+import com.bezkoder.springjwt.models.ERole;
+import com.bezkoder.springjwt.models.Role;
 import com.bezkoder.springjwt.models.Trip;
+import com.bezkoder.springjwt.models.User;
+import com.bezkoder.springjwt.repository.RoleRepository;
 import com.bezkoder.springjwt.repository.TripRepository;
+import com.bezkoder.springjwt.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,14 +19,23 @@ import java.util.List;
 public class DataLoader implements CommandLineRunner {
 
     private final TripRepository tripRepository;
+    private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    public DataLoader(TripRepository tripRepository) {
+    public DataLoader(TripRepository tripRepository, RoleRepository roleRepository, UserRepository userRepository) {
         this.tripRepository = tripRepository;
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        loadTrips();
+        loadRoles();
+        loadUsers();
+    }
+
+    private void loadTrips() {
         List<Trip> trips = Arrays.asList(
                 new Trip(1L, "Japan", "https://humanidades.com/wp-content/uploads/2017/07/japon-7-e1571188430646.jpg", "$4500", "4320€", "../../../../japan", "Embark on a fascinating journey to the land of the rising sun, where tradition intertwines with modernity at every corner. Discover the serenity of zen gardens, the bustling streets of Tokyo, and the majesty of Mount Fuji.", "Senso-ji Temple in Tokyo, Himeji Castle, Itsukushima Shrine in Miyajima", "2024-06-01", "2024-06-15"),
                 new Trip(2L, "Turkey", "https://media.iatiseguros.com/wp-content/uploads/2018/06/04005617/que-hacer-en-turquia-3.jpg", "$1600", "1450€", "../../../../turkey", "Explore the mystery and diversity of Turkey, a country that spans two continents. From the vibrant bazaars of Istanbul to the ancient ruins of Ephesus, each corner offers a rich history and warm hospitality.", "The Blue Mosque in Istanbul, Pamukkale, Cappadocia", "2024-07-10", "2024-07-20"),
@@ -35,4 +50,24 @@ public class DataLoader implements CommandLineRunner {
 
         tripRepository.saveAll(trips);
     }
+    private void loadRoles() {
+        List<Role> roles = Arrays.asList(
+                new Role(ERole.ROLE_ADMIN),
+                new Role(ERole.ROLE_MODERATOR),
+                new Role(ERole.ROLE_USER)
+        );
+
+
+
+        roleRepository.saveAll(roles);
+    }
+
+    private void loadUsers() {
+        List<User> users = Arrays.asList(
+                new User("richard", "makovs", "richardmakovs08@gmail.com", "$10$4Xxc/0/w9MllwlcXB1xJ9OPRkjGDQI1shd6574U1xZCsw.4XmqqM2", "666666666", "GGGGGGG", "GGGGGGG", "Spain", "2024-05-09")
+        );
+
+        userRepository.saveAll(users);
+    }
+
 }

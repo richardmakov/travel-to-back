@@ -11,10 +11,6 @@ public class Passenger {
     private String name;
     private String passportNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id")
-    private Booking booking;
-
     public Long getId() {
         return id;
     }
@@ -39,11 +35,4 @@ public class Passenger {
         this.passportNumber = passportNumber;
     }
 
-    public Booking getBooking() {
-        return booking;
-    }
-
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
 }

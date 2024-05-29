@@ -4,6 +4,7 @@ package com.bezkoder.springjwt.controllers;
 import com.bezkoder.springjwt.service.TripService;
 import com.bezkoder.springjwt.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,9 @@ public class TripController {
     }
 
     @GetMapping("/all")
-    public List<Trip> getAllTrips() {
-        return tripService.getAllTrips();
+    public ResponseEntity<List<Trip>> getAllTrips() {
+        List<Trip> trips = tripService.getAllTrips();
+        return ResponseEntity.ok(trips);
     }
+
 }
