@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -59,7 +60,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(
@@ -84,17 +85,6 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        if (userRepository.existsByIdCard(signUpRequest.getIdCard())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: IdCard is already in use!"));
-        }
-
-        if (userRepository.existsByPassport(signUpRequest.getPassport())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Passport is already in use!"));
-        }
 
         // Create new user's account
         User user = new User(signUpRequest.getFirstname(), signUpRequest.getLastname(),
@@ -141,7 +131,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> userRoles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(

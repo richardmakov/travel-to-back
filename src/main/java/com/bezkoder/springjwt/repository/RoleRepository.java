@@ -11,4 +11,5 @@ import com.bezkoder.springjwt.models.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
   Optional<Role> findByName(ERole name);
+  boolean existsByName(ERole name);
 }

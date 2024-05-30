@@ -47,7 +47,11 @@ public class DataLoader implements CommandLineRunner {
                 new Trip(9L, "Budapest", "https://a.cdn-hotels.com/gdcs/production163/d345/47e14d8a-051b-4932-85d1-8f5c0363fde7.jpg", "$1090", "898€", "../../../../budapest", "Embark on a journey to dazzling Budapest, where historical architecture meets modern charm along the majestic Danube River. With its famous thermal baths and vibrant nightlife, Budapest offers a unique experience in Central Europe.", "Hungarian Parliament", "2024-04-15", "2024-04-22")
         );
 
-        tripRepository.saveAll(trips);
+        for (Trip trip : trips) {
+            if (!tripRepository.existsByDestination(trip.getDestination())) {
+                tripRepository.save(trip);
+            }
+        }
     }
 
     private void loadRoles() {
@@ -58,8 +62,11 @@ public class DataLoader implements CommandLineRunner {
         );
 
 
-        roleRepository.saveAll(roles);
+        for (Role role : roles) {
+            if (!roleRepository.existsByName(role.getName())) {
+                roleRepository.save(role);
+            }
+        }
     }
-
 
 }

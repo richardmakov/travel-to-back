@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TripRepository extends JpaRepository<Trip, Long> {
     List<Trip> findByDestination(String destination);
+    boolean existsByDestination(String destination);
 }
