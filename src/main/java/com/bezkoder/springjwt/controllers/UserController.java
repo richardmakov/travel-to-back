@@ -3,10 +3,7 @@ package com.bezkoder.springjwt.controllers;
 import com.bezkoder.springjwt.dto.UserDTO;
 import com.bezkoder.springjwt.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +18,10 @@ public class UserController {
     @GetMapping("/all")
     public List<UserDTO> getAllUsers() {
         return userDetailsService.getAllUsers();
+    }
+
+    @PutMapping("/update/{id}")
+    public UserDTO updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        return userDetailsService.updateUser(id, userDTO);
     }
 }
