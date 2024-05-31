@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
@@ -31,6 +31,12 @@ public class BookingController {
     public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
         Booking booking = bookingService.getBookingById(id);
         return ResponseEntity.ok(booking);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Booking>> getBookingsByUserId(@PathVariable Long id) {
+        List<Booking> bookings = bookingService.findByUserId(id);
+        return ResponseEntity.ok(bookings);
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.bezkoder.springjwt.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 
@@ -13,6 +14,7 @@ public class Payment {
     private String paymentDate;
 
     @OneToOne(mappedBy = "payment")
+    @JsonBackReference
     private Booking booking;
 
     public Long getId() {

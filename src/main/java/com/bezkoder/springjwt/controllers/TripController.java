@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-        RequestMethod.DELETE})
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/trips")
 public class TripController {

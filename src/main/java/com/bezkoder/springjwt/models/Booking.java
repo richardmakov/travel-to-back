@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -28,11 +29,13 @@ public class Booking {
     private List<Passenger> passengers = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Payment payment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
 
     public Long getId() {
         return id;
